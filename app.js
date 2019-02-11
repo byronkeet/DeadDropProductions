@@ -19,7 +19,9 @@ var indexRoutes     = require("./routes/index"),
     commentRoutes   = require("./routes/comments"),
     bandRoutes      = require("./routes/bands");
 
-mongoose.connect("mongodb://localhost:27017/dead_drop_productions", { useNewUrlParser: true });
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/dead_drop_productions";
+mongoose.connect(url, { useNewUrlParser: true });
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public" ));
