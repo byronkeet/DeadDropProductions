@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/app.css" type="text/css">
+
+    <!-- Custon Fonts -->
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    
+    
+    <title>dead DROP PRODUCTIONS</title>
+</head>
+<body>
+
+    <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark banner bg-transparent">
+        <a class="navbar-brand" href="/"><img class="bg" id="logo" src="/imgs/logo.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item nav-link" href="/drop"><img id="drop-icon" src="/imgs/content-headings/top-bar-headers/drop.png"></a>
+                <a class="nav-item nav-link" href="/rates"><img id="rates-icon" src="/imgs/content-headings/top-bar-headers/rates.png"></a>
+                <a class="nav-item nav-link" href="/media"><img id="mixes-icon" src="/imgs/content-headings/top-bar-headers/mixes.png"></a>
+                <a class="nav-item nav-link" href="/about"><img id="about-icon" src="/imgs/content-headings/top-bar-headers/about.png"></a>
+                <% if(!currentUser) { %>
+                    <a class="nav-item nav-link" href="/login"><img id="login-icon" src="/imgs/content-headings/top-bar-headers/login.png"></a>
+                <% } else { %>
+                    <a class="nav-item nav-link" href="/logout"><img id="logout-icon" src="/imgs/content-headings/top-bar-headers/logout.png"></a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div class="container">
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert"><%= error %></div>
+        <% } %>
+        <% if(success && success.length > 0){ %>
+            <div class="alert alert-success" role="alert"><%= success %></div>
+        <% } %>
+    </div>

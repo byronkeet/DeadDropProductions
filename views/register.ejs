@@ -1,0 +1,58 @@
+<% include partials/header %>
+
+    <br>
+    <br>
+    <br>
+    <div class="container grey">
+        <h2 >NEW USER REGISTRATION</h2>
+        <form  action="/register" method="POST">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="" required />
+            <br>
+            <label for="full-name">Full Name</label>
+            <input type="text" name="fullName" id="full-name" placeholder="" required />
+            <br>
+            <label for="performingAs">Performing As</label>
+            <input type="text" name="performingAs" id="performingAs" placeholder="" required />
+            <br>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" placeholder="" required />
+            <br>
+            <label for="confemail">Confirm Email</label>
+            <input type="text" name="emailConfirm" id="confemail" placeholder="" required onblur="confirmEmail()" />
+            <br>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="" required />
+            <br>
+            <label for="confpassword">Confirm Pasword</label>
+            <input type="password" name="passwordConfirm" id="confpassword" placeholder="" required onblur="confirmPassword()" />
+            <br>
+            
+            <input id="register_submit" type="image" src="imgs/button.png" border="0" alt="Submit" />
+            
+        </form>
+    </div>
+
+  
+
+    <script type="text/javascript">
+    function confirmEmail() {
+        var email = document.getElementById("email").value
+        var confemail = document.getElementById("confemail").value
+        if(email != confemail) {
+            alert('Email Not Matching!');
+        }
+    }
+
+    function confirmPassword() {
+        var password = document.getElementById("password").value
+        var confpassword = document.getElementById("confpassword").value
+        if(password != confpassword) {
+            alert('Password Not Matching!');
+        }
+    }
+    </script>
+
+    <% include partials/footer %>
+
+

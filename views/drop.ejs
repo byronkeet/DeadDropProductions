@@ -1,0 +1,143 @@
+<% include partials/header %>
+
+
+
+    <div class="container about text-center">
+        <div class="my-4">
+        <img class="pt-5 pb-2" src="imgs/drop-title.png">
+            <h5><i>how it works</i></h5>
+        </div>
+
+        <div class="text-left">
+        <p>So you’ve recorded your music and your are ready to move to the next stage of production. That’s where we come in! Here at DDP we take your stems and we mould it into an international quality release. But first, read through our live music or EDM recording checklists to make sure you have the right elements in place to get professional results.</p>
+        
+        <p>Once you have completed the registration, you will recieve a confirmation e-mail with a link to your artist profile and you can begin uploading your music.</p>
+        </div>
+        <a href="/register"><img class="mt-4" id="logo" src="imgs/DROP-ICON.png"></a>
+        <br>
+        
+        <img class="pt-5 pb-2" src="imgs/recording-checklist.png">
+        <div class="text-left">
+        <p>Please note this checklist can be used as a guideline, we understand each genre and song has different needs, if you are a hip hop artist, don’t stress about the Guitar guidelines but make sure your vocals and beats meet these requirements.</p>
+        <p>Preferably 96k/hz 24 bit WAVs and/or 48k/hz 24bit</p>
+        <p>All raw* stems need to be edited and tuned prior to mixing. However, we may request the original records. <br/>(a raw stem does not include any eq, compression or any other plugins)</p>
+        <p>Everything bounced down, labeled as clearly as possible without taking up too much text. Simple and short.</p>
+        <p>Any stereo files bounce as stereo files, any mono files (like guitars, bass and vocals) bounced as mono files.</p>
+        <p>Each song in individual folder, all stems for each individual instrument bounced from the same starting position. This is called a Zero Point (00:00:00)</p>
+        <p>Please provide a master note file with all tempos, song names, references and anything else you think we might need to know on a song-by-song basis.</p>
+        <p>Please provide demo/rough bounces of all songs so we can hear them and use as a reference.</p>
+        </div>
+        
+        
+        <img class="pt-3 pb-2 collapsible" src="imgs/live-recordings.png">
+        
+        <div class="content">
+            
+            <img class="" src="imgs/vocals.png">
+            <p>3 or more takes of each part
+            <br/>
+            (each take labeled sequentially eg. Chorus Lead Vocal – Take 1, Chorus Lead Vocal – Take 2… ect.) 
+            <br/>
+            Double harmonies on chorus’/big parts
+            <br/>
+            A lower octave vocal track of the main vocal on chorus’. Same melody as the chorus, just a low voice to blend.</p>
+
+            <img class="" src="imgs/guitars.png">
+            <br/>
+            <p>Provide a pre amplification DI output aswell as mic’d amp tracks
+            <br/>
+            Double tracked rhythms (Mono)
+            <br/>
+            Double tracked leads
+            <br/>
+            Double track octaves 
+            <br/>
+            Please provide all raw amp tracks and any FX/delays as a separate track</p>
+
+            <img class="" src="imgs/bass.png">
+            <br/>
+            <p class="mb-0">Single tracked (straight down the middle)</p>
+            <p>Please provide amp and DI</p>
+            
+            <img class="" src="imgs/drums.png">
+            <br/>
+            <p class="mb-0">Kick</p>
+            <p class="mb-0">Snare – Top and bottom</p>
+            <p class="mb-0">Hi Hat</p>
+            <p class="mb-0">Rack toms</p>
+            <p class="mb-0">Floor toms</p>
+            <p class="mb-0">Two overheads</p>
+            <p>Mono Percussion/Tambourine</p>
+
+            <img class="" src="imgs/Synths-Piano-Effects.png">
+            <br/>
+            <p class="mb-0">Include delays, reverbs or stereo effects</p>
+            <p class="">MIDI not accepted, only .WAV bounces</p>
+
+            <img class="" src="imgs/acoustic-instruments.png">
+            <br/>
+            <p>EG. Live Piano, Acoustic Guitar, Orchestral Instruments... etc.
+            <br/>
+            Minimum 2 mics on source
+            <br/>
+            DI where possible
+            <br/>
+            Contact mic where possible</p>
+        </div>
+
+        <br>
+        <img class="pt-2 pb-2 collapsible" src="imgs/edm-and-hip-hop.png">
+        <div class="content">
+            <img class="" src="imgs/vocals.png">
+            <br>
+            <p>3 or more takes of each part
+            <br/>
+            (each take labeled sequentially eg. 
+            <br/>
+            Chorus Lead Vocal – Take 1, Chorus Lead Vocal – Take 2… ect.) 
+            <br/>
+            Double harmonies on chorus’/big parts
+            <br/>
+            A lower octave vocal track of the main vocal on chorus’. Same melody as the chorus, just a low voice to blend.</p>
+
+            <img class="" src="imgs/beats.png">
+            <br/>
+            <p>Preferably individual stems (eg. Kick, Snare, Percussion… etc)
+            <br/>
+            We can accept a bounced master stereo .WAV, however we wont be able to effect levels or make changes to elements.</p>
+
+            <img class="" src="imgs/instrumental.png">
+            <br/>
+            <p>Preferably individual stems (eg. Synths, Sub tracks, Keys… etc)</p>
+        
+        
+            <p>Feel free to send through clearly labeled MIDI tracks.</p>
+        </div>
+        <br/>
+        <br/>
+        <a href="/" ><img class="" src="imgs/download-pdf.png"></a>
+        <p>Click here to download the recording checklist</p>
+        <br/>
+    
+    </div>
+
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+            content.style.display = "none";
+            } else {
+            content.style.display = "block";
+            }
+        });
+        }
+    </script>
+   
+
+<% include partials/footer %>

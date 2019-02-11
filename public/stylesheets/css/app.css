@@ -1,0 +1,168 @@
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+
+#home {
+  background: url("../imgs/home.jpg") center;
+  background-size: cover;
+  min-height: 50rem;
+  height: auto;
+  border-radius: 0;
+  width: 100%;
+  color: #fff;
+  padding-top: 1rem; 
+}
+
+.about {
+    width: 60%;
+   
+}
+
+a:active {
+  color: red;
+  text-decoration: underline;
+}
+
+
+.red {
+    color: red;
+}
+
+/* #bg {
+    position: fixed; 
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+    z-index: 0;
+  }
+
+#bg img {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    margin: auto; 
+    min-width: 50%;
+    min-height: 50%;
+} */
+
+
+
+.banner {
+    background-image: url("../imgs/banner.jpg");
+    background-size: cover;
+   
+    }
+
+    .banner-bottom {
+      background-image: url("../imgs/BOTTOM-BAR.jpg");
+      background-size: cover;
+     
+      }
+
+#mainNavbar .nav-link{
+    color: white
+}
+
+#mainNavbar .nav-link:hover {
+    color: #EA1C2C;
+}
+
+
+
+#logo {
+    height: 200px;
+    width: 200px;
+}
+
+.nav-link {
+    font-size: 2rem;
+}
+
+.nav-link img {
+    height: 120px;
+    width: 120px;
+}
+
+
+.navbar {
+    z-index: 1;
+}
+
+.social a {
+    font-size: 4.5em;
+    padding: 3rem;
+  }
+  
+  .fa-facebook {
+    color: #3b5998;
+  }
+  
+  .fa-twitter {
+    color: #00aced;;
+  }
+  
+  .fa-google-plus-g {
+    color: #dd4b39;
+  }
+  
+  .fa-instagram {
+    color: #517fa8;
+  }
+  
+  .fa-youtube {
+    color: #bb0000;
+  }
+  
+  .fa-facebook:hover, .fa-twitter:hover, .fa-google-plus-g:hover, .fa-instagram:hover, .fa-youtube:hover {
+    color: #d5d5d5;
+  }
+
+  /*---Media Queries --*/
+@media (max-width: 992px) {
+    .social a {
+      font-size: 4em;
+      padding: 2rem;
+     
+    }
+
+    .about {
+        width: 70%;
+    }
+    }
+  @media (max-width: 768px) {
+    
+    .social a {
+      font-size: 2.5rem;
+      padding: 1.2rem;
+    }
+  }
+  @media (max-width: 576px) {
+    .about {
+        width: 90%;
+    }
+  
+  .social a {
+    font-size: 2rem;
+    padding: 0.7rem;
+  }
+  }
+
+  /*
+Extra small (xs) devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap
+
+Small (sm) devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+Medium (md) devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+Large (lg) devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+Extra (xl) large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+*/

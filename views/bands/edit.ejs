@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+    <div class="container">
+        <div class="row">
+            <h1 style="text-align: center">Edit <%= band.name %></h1>
+            <div style="width: 30%; margin: 25px auto;">
+                <form action="/media/<%= band._id %>?_method=PUT" method="POST">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="band[name]" value="<%= band.name %>">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="band[image]" value="<%= band.image %>">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="band[description]" value="<%= band.description %>">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-danger btn-block">Submit!</button>
+                    </div>
+                </form>
+                <a href="/media">Go Back</a>
+            </div>
+        </div>
+    </div>
+
+
+<% include ../partials/footer %>
