@@ -32,7 +32,12 @@ router.get("/register", function(req, res){
 
 //HANDLE SIGN UP LOGIC
 router.post("/register", function(req, res){
-    var newUser = new User({username: req.body.username, fullName: req.body.fullName, performingAs: req.body.performingAs, email: req.body.email});
+    var newUser = new User({
+        username: req.body.username, 
+        fullName: req.body.fullName, 
+        performingAs: req.body.performingAs, 
+        email: req.body.email
+    });
     User.register(newUser, req.body.password, function(err, user){
         if(err) {
             req.flash("error", err.message)
@@ -65,6 +70,16 @@ router.get("/logout", function(req, res){
     res.redirect("/");
 });
 
+router.get("/users/:id", function(req, res){
+    User.findById(req.params.id, function(err, foundUser){
+        if(err){
+            req.flash("error", "User could not be found");
+            res.redirect("back");
+        } else {
+            res.render("users/show", {user: foundUser});
+        }
+    });
+});
 
 
 module.exports = router;
