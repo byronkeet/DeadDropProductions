@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
 var User = require("../models/user");
+var Band = require("../models/band");
 var passport = require("passport");
 
 //HOME PAGE - ROOT ROUTE
@@ -45,7 +46,7 @@ router.post("/register", function(req, res){
         }
         passport.authenticate("local")(req, res, function(){
             req.flash("success", "Welcome to dead DROP Productions " + user.username);
-            res.redirect("/media");
+            res.redirect('/users/' + user.id);
         });
     });
 });
@@ -55,13 +56,26 @@ router.get("/login", function(req, res){
     res.render("login");
 });
 
-router.post("/login", passport.authenticate("local", 
-    {
-        successRedirect: "/media",
-        failureRedirect: "/login"
-    }), function(req, res){
+router.post("/login", function(req, res, next) {
+    passport.authenticate("local", function(err, user, info) {
+      if (err) { 
+        req.flash("error", "Something went wrong");  
+        return next(err); 
+      }
+      if (!user) { 
+        req.flash("error", "Username and Password do not match");  
+        return res.redirect("/login"); 
+      }
+      req.logIn(user, function(err) {
+        if (err) { 
+            req.flash("error", "Something went wrong");
+            return next(err); 
+        }
 
-});
+        return res.redirect("/users/" + user.id);
+      });
+    })(req, res, next);
+  });
 
 //LOGOUT ROUTE
 router.get("/logout", function(req, res){
@@ -76,10 +90,16 @@ router.get("/users/:id", function(req, res){
             req.flash("error", "User could not be found");
             res.redirect("back");
         } else {
-            res.render("users/show", {user: foundUser});
-        }
+            Band.find().where("author.id").equals(foundUser._id).exec(function(err, foundBand){
+                if(err || !foundBand){
+                    req.flash("error", "Band not found");
+                    res.redirect("/media");
+                } else {
+            res.render("users/show", {user: foundUser, bands: foundBand});
+                }
+        });
+    }
     });
 });
-
 
 module.exports = router;

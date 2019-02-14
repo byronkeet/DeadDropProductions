@@ -32,7 +32,7 @@
                 <% if(!currentUser) { %>
                     <a class="nav-item nav-link" href="/login"><img id="login-icon" src="/imgs/Content-Headings/TOP-BAR-HEADERS/LOGIN.png"></a>
                 <% } else { %>
-                    <a class="nav-item nav-link" href="/logout"><img id="logout-icon" src="/imgs/Content-Headings/TOP-BAR-HEADERS/LOGOUT.png"></a>
+                    <a class="nav-item nav-link" href="/users/<%= currentUser.id %>"><h1><%= currentUser.username %></h1></a>
                 <% } %>
             </div>
         </div>

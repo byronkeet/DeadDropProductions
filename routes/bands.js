@@ -55,11 +55,11 @@ router.get("/:id", function(req, res){
 
 //EDIT BAND
 router.get("/:id/edit", middlewareObj.checkBandOwnership, function(req, res){
-    Band.findById(req.params.id, function(err, foundBand){
-        if(err || !foundBand){
-            req.flash("error", "Band not found");
-            res.redirect("/media");
-        } else {
+        Band.findById(req.params.id, function(err, foundBand){
+            if(err || !foundBand){
+                req.flash("error", "Band not found");
+                res.redirect("/media");
+            } else {
             res.render("bands/edit", {band: foundBand})
         }
     });
