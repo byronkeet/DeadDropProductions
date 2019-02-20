@@ -95,7 +95,7 @@ router.get("/users/:id", function(req, res){
                     req.flash("error", "Band not found");
                     res.redirect("/media");
                 } else {
-            res.render("users/show", {user: foundUser, bands: foundBand});
+            res.render("bands/profile", {user: foundUser, bands: foundBand});
                 }
         });
     }

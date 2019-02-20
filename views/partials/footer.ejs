@@ -59,6 +59,16 @@
                     $('#login-icon').attr('src', '/imgs/Content-Headings/TOP-BAR-HEADERS/LOGIN.png');
                 })
             });
+            $(function(){
+                $('#profile-icon').hover(function()//on over
+                {
+                    $('#profile-icon').attr('src', '/imgs/Content-Headings/TOP-BAR-HEADERS/PROFILE-ROLL.png');
+                },
+                function()//on out
+                {
+                    $('#profile-icon').attr('src', '/imgs/Content-Headings/TOP-BAR-HEADERS/PROFILE.png');
+                })
+            });
 
             $(function(){
                 $('#logout-icon').hover(function()//on over

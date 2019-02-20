@@ -21,7 +21,7 @@ router.post("/", middlewareObj.isLoggedIn, function(req, res){
     Band.findById(req.params.id, function(err, band){
         if(err) {
             req.flash("error", "Band not found")
-            res.redirect("/media");
+            res.redirect("/");
         } else {
             Comment.create(req.body.comment, function(err, comment){
                 if(err){

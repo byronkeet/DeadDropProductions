@@ -2,7 +2,7 @@
 
     <div class="container">
         <div class="row">
-            <h1 style="text-align: center">Add A New Band</h1>
+            <h1 style="text-align: center">Add A Comment</h1>
             <div style="width: 30%; margin: 25px auto;">
                 <form action="/media/<%= band._id %>/comments" method="POST">
                     <div class="form-group">
@@ -12,7 +12,7 @@
                         <button class="btn btn-lg btn-danger btn-block">Submit!</button>
                     </div>
                 </form>
-                <a href="/media">Go Back</a>
+                <a href="/users/<%= currentUser.id %>">Go Back</a>
             </div>
         </div>
     </div>
