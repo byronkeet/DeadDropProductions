@@ -86,9 +86,8 @@ form label {
   
 }
 
-.about {
-    width: 60%;
-   
+.drop a:hover {
+  text-decoration: none;
 }
 
 a:active {
@@ -200,9 +199,7 @@ a:active {
      
     }
 
-    .about {
-        width: 70%;
-    }
+    
     }
   @media (max-width: 768px) {
     
@@ -212,9 +209,7 @@ a:active {
     }
   }
   @media (max-width: 576px) {
-    .about {
-        width: 90%;
-    }
+    
   
   .social a {
     font-size: 2rem;

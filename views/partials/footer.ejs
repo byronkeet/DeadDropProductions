@@ -80,6 +80,12 @@
                     $('#logout-icon').attr('src', '/imgs/Content-Headings/TOP-BAR-HEADERS/LOGOUT.png');
                 })
             });
+
+            $(function(){
+                $('[data-toggle="collapse"]').on('click',function(){
+                    $('.collapse').collapse('hide');
+                });
+            });
         
        </script>
 
