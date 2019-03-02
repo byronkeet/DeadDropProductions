@@ -1,16 +1,24 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
 var Band = require("../models/band");
+var User = require("../models/user");
 var middlewareObj = require("../middleware");
 
 
 //BAND PAGE
 router.get("/", function(req, res){
-    Band.find({}, function(err, allBands){
-        if(err) {
-            console.log(err);
+    User.findById(req.params.id, function(err, foundUser){
+        if(err){
+            req.flash("error", "User could not be found");
+            res.redirect("back");
         } else {
-            res.render("bands/media", {bands: allBands});
+        Band.find({}, function(err, allBands){
+            if(err) {
+                console.log(err);
+            } else {
+                res.render("bands/profile", {bands: allBands, user: foundUser});
+            }
+        });
         }
     });
 });

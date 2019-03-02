@@ -17,7 +17,8 @@ const express       = require("express"),
 //REQUIRING ROUTES
 var indexRoutes     = require("./routes/index"),
     commentRoutes   = require("./routes/comments"),
-    bandRoutes      = require("./routes/bands");
+    bandRoutes      = require("./routes/bands"),
+    userRoutes      = require("./routes/users");
 
 var url = process.env.DATABASEURL || "mongodb://localhost:27017/dead_drop_productions";
 mongoose.connect(url, { useNewUrlParser: true });
@@ -53,6 +54,7 @@ app.use(function(req, res, next){
 app.use("/", indexRoutes);
 app.use("/media", bandRoutes);
 app.use("/media/:id/comments", commentRoutes);
+app.use("/users", userRoutes);
 
 
 app.listen(port, function(){

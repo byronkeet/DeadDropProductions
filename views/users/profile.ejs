@@ -1,0 +1,69 @@
+<% include ../partials/header %>
+
+<div class="container text-center">
+        <div class="">
+            <img class="pt-2 pb-3" src="/imgs/Content-Headings/ARTIST-PROFILE/ARTIST_HEADER.png">
+        </div>
+</div>
+<div class="container">
+    <div id="profile-intro">
+        
+        <p>Welcome, <%= user.performingAs %> to your artist profile. Here you are able to upload, update and give feedback on your songs.</p>
+
+        <p>Please make sure your exports meet the Export Guidelines below, take your time to label and organize your stems correctly to make sure we have everything we need to get your songs sounding perfect and up to the Dead Drop Standard.</p>
+        
+        <div class="col-lg-4 col-md-6 collapsible">
+            <a href="#detail0" data-toggle="collapse" aria-expanded="true">
+                <img class="pt-3 pb-2" src="/imgs/Content-Headings/ARTIST-PROFILE/EXPORT-GUIDELINES.png">
+                
+            </a>
+            </div>
+            <div class="col-12 order-1 collapse fade" id="detail0">
+                
+                <div class="text-left">
+                <p>Preferably 96k/hz 24 bit WAVs and/or 48k/hz 24bit. 44.1k/hz is accepted.</p>
+        
+                <p>All raw* stems need to be edited and tuned prior to mixing. We may request the original records if any stems have tuning artifacts or misalignment issues. (a raw stem does not include any eq, compression or any other plugins) If not, we do offer Editing and Tuning services.</p>
+                
+               <p>Everything bounced down, labeled as clearly as possible without taking up too much text. Simple and short. Ie. Lead Vocal 1 – Verse; Bass Guitar Amp; Harmony Left 2… ect.</p>
+                
+                <p>Any stereo files bounce as stereo files, any mono files (like guitars, bass and vocals) bounced as mono files.</p>
+                
+                <p>All stems for each individual instrument bounced from the same starting position. This is called a Zero Point (00:00:00)</p>
+                 
+                <p>Please provide demo/rough bounces of your songs in their own folder (REFERENCE). We can use them as a reference point.</p>
+        
+                </div>
+            </div>
+    </div>
+
+    <div class="mt-5 row">
+        <div class="col-lg-12">
+            
+            <p>
+                <a class="btn btn-lg btn-danger" href="/users/new">Drop a Song</a>
+            </p>
+        </div>
+    </div>
+    
+    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <% bands.forEach(function(band){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="card">
+                    <img class="card-img-top" src="<%= band.image %>">
+                    <div class="card-body">
+                        <div class="card-title" style="color: black;">
+                        <h4><%= band.name %></h4> 
+                        </div>
+                    </div>
+                    <a href="/media/<%= band._id %>" class="btn btn-danger">More Info</a>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+    <br>
+    <p>
+        <a class="btn btn-lg btn-danger" href="/logout">Logout</a> 
+    </p>
+
+<% include ../partials/footer %>

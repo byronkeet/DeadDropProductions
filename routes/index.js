@@ -24,6 +24,11 @@ router.get("/rates", function(req, res){
     res.render("rates");
 });
 
+//MIXES PAGE
+router.get("/mixes", function(req, res){
+    res.render("mixes");
+})
+
 //AUTH ROUTES
 
 //SHOW REGISTER FROM
@@ -84,22 +89,6 @@ router.get("/logout", function(req, res){
     res.redirect("/");
 });
 
-router.get("/users/:id", function(req, res){
-    User.findById(req.params.id, function(err, foundUser){
-        if(err){
-            req.flash("error", "User could not be found");
-            res.redirect("back");
-        } else {
-            Band.find().where("author.id").equals(foundUser._id).exec(function(err, foundBand){
-                if(err || !foundBand){
-                    req.flash("error", "Band not found");
-                    res.redirect("/media");
-                } else {
-            res.render("bands/profile", {user: foundUser, bands: foundBand});
-                }
-        });
-    }
-    });
-});
+
 
 module.exports = router;
