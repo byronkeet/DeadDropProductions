@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 
 var trackSchema = new mongoose.Schema({
     title: String,
+    image: String,
     tempo: Number,
     mixNotes: String,
     extraInfo: String,

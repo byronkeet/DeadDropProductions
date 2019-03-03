@@ -4,21 +4,30 @@
         <div class="row">
             <h1 style="text-align: center">Drop a Song</h1>
             <div style="width: 30%; margin: 25px auto;">
-                <form action="/media" method="POST">
+                <form action="/users/<%= currentUser.id %>/tracks" method="POST">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="name" placeholder="name">
+                        <input class="form-control" type="text" name="title" placeholder="Title">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" name="image" placeholder="image url">
+                        <input class="form-control" type="text" name="image" placeholder="Image">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" name="description" placeholder="description">
+                        <input class="form-control" type="text" name="tempo" placeholder="Tempo (BPM)">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="mixNotes" placeholder="Mix Notes">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="extraInfo" placeholder="Extra Info">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="upload" name="upload" placeholder="Upload Track">
                     </div>
                     <div class="form-group">
                         <button class="btn btn-lg btn-danger btn-block">Submit!</button>
                     </div>
                 </form>
-                <a href="/media">Go Back</a>
+                <a href="/users/<%= currentUser.id %>">Go Back</a>
             </div>
         </div>
     </div>

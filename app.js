@@ -12,8 +12,8 @@ const express       = require("express"),
       Band          = require("./models/band"),
       Track         = require("./models/track"),
       Comment       = require("./models/comment"),
-      User          = require("./models/user"),
-      seedDB        = require("./seed");
+      User          = require("./models/user");
+      
 
 //REQUIRING ROUTES
 var indexRoutes     = require("./routes/index"),
