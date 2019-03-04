@@ -8,7 +8,7 @@ var middlewareObj = require("../middleware");
 //PROFILE PAGE ROUTE
 router.get("/:id", middlewareObj.isLoggedIn, function(req, res){
     User.findById(req.params.id, function(err, foundUser){
-        if(err){
+        if(err || !foundUser){
             req.flash("error", "User could not be found");
             res.redirect("back");
         } else {
@@ -17,7 +17,7 @@ router.get("/:id", middlewareObj.isLoggedIn, function(req, res){
                     req.flash("error", "Track not found");
                     res.redirect("/user/" + req.params.id);
                 } else {
-            res.render("users/profile", {user: foundUser, tracks: foundTrack});
+                     res.render("users/profile", {user: foundUser, tracks: foundTrack});
                 }
         });
     }
@@ -30,25 +30,46 @@ router.get("/:id/tracks/new", middlewareObj.isLoggedIn, function(req, res){
 });
 
 //CREATE NEW TRACK
-router.post("/", middlewareObj.isLoggedIn, function(req, res){
-    var title = req.body.title;
-    var image = req.body.image;
-    var tempo = req.body.tempo;
-    var mixNotes = req.body.mixNotes;
-    var extraInfo = req.body.extraInfo;
-    var upload = req.body.upload;
-    var author = {
-        id: req.user._id,
-        username: req.user.username
-    };
-    var newTrack = {title: title, image: image, tempo: tempo, mixNotes: mixNotes, extraInfo: extraInfo, upload: upload, author: author};
-    Track.create(newTrack, function(err, newlyCreated){
-        if(err) {
-            req.flash("error", "Something went wrong");
+router.post("/:id/tracks/", function(req, res){
+    User.findById(req.params.id, function(err, foundUser){
+        if(err || !foundUser){
+            req.flash("error", "User not found");
             res.redirect("back");
         } else {
-            req.flash("success", "Successfuly uploaded track");
-            req.redirect("/users/" + req.params.id);
+            Track.create(req.body.track, function(err, track){
+                if(err || !track){
+                    req.flash("error", "Something went worng");
+                    res.redirect("back");
+                } else {
+                    //add id and username to track
+                    track.author.id = req.user._id;
+                    track.author.username = req.user.username;
+                    track.save();
+                    foundUser.tracks.push(track);
+                    foundUser.save();
+                    req.flash("success", "Successfuly created track");
+                    res.redirect("/users/" + req.params.id);
+                }
+            })
+        }
+    })
+})
+
+//TRACK DETAIL PAGE
+router.get("/:id/tracks/:track_id", middlewareObj.checkTrackOwnership, function(req, res){
+    User.findById(req.params.id, function(err, foundUser){
+        if(err || !foundUser){
+            req.flash("error", "User could not be found");
+            res.redirect("back");
+        } else {
+            Track.findById(req.params.track_id, function(err, foundTrack){
+                if(err || !foundTrack){
+                    req.flash("error", "Track could not be found");
+                    res.redirect("back");
+                } else {
+                    res.render("users/show", {track: foundTrack, user: foundUser});
+                }
+            });
         }
     });
 });

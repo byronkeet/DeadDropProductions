@@ -6,7 +6,13 @@ var userSchema = new mongoose.Schema({
     fullName: String,
     performingAs: String,
     email: String,
-    password: String
+    password: String,
+    tracks: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Track"
+        }
+    ]
 });
 
 userSchema.plugin(passportLocalMongoose);

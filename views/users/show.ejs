@@ -1,0 +1,55 @@
+<% include ../partials/header %>
+
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card" >
+                <div class="card-header">
+                    dead DROP Productions
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item active">Info 1</li>
+                    <li class="list-group-item">Info 2</li>
+                    <li class="list-group-item">Info 3</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <img class="card-img-top" src="<%= track.image %>">
+                <div class="card-body">
+                    
+                    <h4 class="card-title"><a><%= track.title %></a></h4>
+                    <p class="card-text"><%= track.mixNotes %></p>
+                    <p><em>Submitted By <%= track.author.username %></em></p>
+                    <% if(currentUser && track.author.id.equals(currentUser._id)){ %>
+                    <form class="delete-form" action="/users/<%= user.id %>/tracks/<%= track._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                    <% } %>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-body text-right">
+                    <a class="btn btn-danger btn-lg" href="/users/<%= user.id %>/tracks/<%= track._id %>/comments/new">Add New Comment</a>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <% track.comments.forEach(function(comment){ %>
+                            <div class="card-body">
+                                <strong><%= comment.author.username %></strong>
+                                <span class="float-right">10 days ago</span>
+                                <p><%= comment.text %></p>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
