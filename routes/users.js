@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
 var User = require("../models/user");
+var Comment = require("../models/comment");
 var Track = require("../models/track");
 var passport = require("passport");
 var middlewareObj = require("../middleware");
@@ -62,7 +63,7 @@ router.get("/:id/tracks/:track_id", middlewareObj.checkTrackOwnership, function(
             req.flash("error", "User could not be found");
             res.redirect("back");
         } else {
-            Track.findById(req.params.track_id, function(err, foundTrack){
+            Track.findById(req.params.track_id).populate("comments").exec(function(err, foundTrack){
                 if(err || !foundTrack){
                     req.flash("error", "Track could not be found");
                     res.redirect("back");
@@ -73,5 +74,48 @@ router.get("/:id/tracks/:track_id", middlewareObj.checkTrackOwnership, function(
         }
     });
 });
+
+//ADD NEW COMMENT ROUTE
+router.get("/:id/tracks/:track_id/comments/new", function(req, res){
+    Track.findById(req.params.track_id, function(err, track){
+        if(err || !track){
+            req.flash("error", "Track not found");
+            res.redirect("back");
+        } else {
+            res.render("comments/new", {track: track});
+        }
+    });
+});
+
+//CREATE COMMENT ROUTE
+router.post("/:id/tracks/:track_id/comments", function(req, res){
+    
+            Track.findById(req.params.track_id, function(err, foundTrack){
+                if(err || !foundTrack){
+                    req.flash("error", "Track not found");
+                    res.redirect("back");
+                } else {
+                    Comment.create(req.body.comment, function(err, comment){
+                        if(err || !comment) {
+                            req.flash("error", "Something went wrong");
+                            res.redirect("back");
+                        } else {
+                            comment.author.id = req.user._id;
+                            comment.author.username = req.user.username;
+                            comment.save();
+                            console.log(comment);
+                            foundTrack.comments.push(comment);
+                            foundTrack.save();
+                            console.log(foundTrack);
+                            req.flash("success", "Successfuly created comment");
+                            res.redirect("/users/" + req.params.id + "/tracks/" + foundTrack._id);
+                        }
+                    });
+                }
+            });
+  
+    
+});
+
 
 module.exports = router;

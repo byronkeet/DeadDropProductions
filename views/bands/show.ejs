@@ -43,7 +43,7 @@
                             <div class="card-body">
                                 <strong><%= comment.author.username %></strong>
                                 <span class="float-right">10 days ago</span>
-                                <p><%= comment.text %></p>
+                                <p><%= comment %></p>
                                 <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
                                     <a class="btn btn-xs btn-warning" href="/media/<%= band._id %>/comments/<%= comment._id %>/edit">Edit</a>
                                     <form class="delete-form" action="/media/<%= band._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
