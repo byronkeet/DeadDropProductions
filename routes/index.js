@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
 var User = require("../models/user");
-var Band = require("../models/band");
 var passport = require("passport");
 
 //HOME PAGE - ROOT ROUTE

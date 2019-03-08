@@ -1,30 +1,8 @@
-var Band = require("../models/band");
 var User = require("../models/user");
 var Comment = require("../models/comment");
 var Track = require("../models/track");
 
 var middlewareObj = {};
-
-middlewareObj.checkBandOwnership = function(req, res, next){
-    if(req.isAuthenticated()){
-        Band.findById(req.params.id, function(err, foundBand){
-            if(err || !foundBand){
-                req.flash("error", "Band not found")
-                res.redirect("back");
-            } else {
-                if(foundBand.author.id.equals(req.user._id)){
-                    next();
-                } else {
-                    req.flash("error", "You do not have permission to do that")
-                    res.redirect("back");
-                }
-            }
-        });
-    } else {
-        req.flash("error", "You need to be logged in to do that")
-        res.redirect("back");
-    }
-}
 
 middlewareObj.checkTrackOwnership = function(req, res, next){
     if(req.isAuthenticated()){

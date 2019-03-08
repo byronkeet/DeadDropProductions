@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
-var Band = require("../models/band");
 var Comment = require("../models/comment");
 var middlewareObj = require("../middleware");
 

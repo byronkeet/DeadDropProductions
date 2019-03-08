@@ -9,7 +9,6 @@ const express       = require("express"),
       localStrategy = require("passport-local"),
       methodOverride = require("method-override"),
       expressSession = require("express-session"),
-      Band          = require("./models/band"),
       Track         = require("./models/track"),
       Comment       = require("./models/comment"),
       User          = require("./models/user");
@@ -18,7 +17,6 @@ const express       = require("express"),
 //REQUIRING ROUTES
 var indexRoutes     = require("./routes/index"),
     commentRoutes   = require("./routes/comments"),
-    bandRoutes      = require("./routes/bands"),
     userRoutes      = require("./routes/users");
 
 var url = process.env.DATABASEURL || "mongodb://localhost:27017/dead_drop_productions";
@@ -53,8 +51,6 @@ app.use(function(req, res, next){
 });
 
 app.use("/", indexRoutes);
-app.use("/media", bandRoutes);
-app.use("/media/:id/comments", commentRoutes);
 app.use("/users", userRoutes);
 
 

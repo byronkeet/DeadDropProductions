@@ -89,32 +89,41 @@ router.get("/:id/tracks/:track_id/comments/new", function(req, res){
 
 //CREATE COMMENT ROUTE
 router.post("/:id/tracks/:track_id/comments", function(req, res){
-    
-            Track.findById(req.params.track_id, function(err, foundTrack){
-                if(err || !foundTrack){
-                    req.flash("error", "Track not found");
+    Track.findById(req.params.track_id, function(err, foundTrack){
+        if(err || !foundTrack){
+            req.flash("error", "Track not found");
+            res.redirect("back");
+        } else {
+            Comment.create(req.body.comment, function(err, comment){
+                if(err || !comment) {
+                    req.flash("error", "Something went wrong");
                     res.redirect("back");
                 } else {
-                    Comment.create(req.body.comment, function(err, comment){
-                        if(err || !comment) {
-                            req.flash("error", "Something went wrong");
-                            res.redirect("back");
-                        } else {
-                            comment.author.id = req.user._id;
-                            comment.author.username = req.user.username;
-                            comment.save();
-                            console.log(comment);
-                            foundTrack.comments.push(comment);
-                            foundTrack.save();
-                            console.log(foundTrack);
-                            req.flash("success", "Successfuly created comment");
-                            res.redirect("/users/" + req.params.id + "/tracks/" + foundTrack._id);
-                        }
-                    });
+                    comment.author.id = req.user._id;
+                    comment.author.username = req.user.username;
+                    comment.save();
+                    console.log(comment);
+                    foundTrack.comments.push(comment);
+                    foundTrack.save();
+                    console.log(foundTrack);
+                    req.flash("success", "Successfuly created comment");
+                    res.redirect("/users/" + req.params.id + "/tracks/" + foundTrack._id);
                 }
             });
-  
-    
+        }
+    });
+});
+
+//COMMENT DELETE ROUTE
+router.delete("/:id/tracks/:track_id/comments/:comment_id", middlewareObj.checkCommentOwnership, function(req, res){
+    Comment.findByIdAndRemove(req.params.comment_id, function(err){
+        if(err){
+            res.redirect("back");
+        } else {
+            req.flash("success", "Comment deleted");
+            res.redirect("/users/" + req.params.id + "/tracks/" + req.params.track_id);
+        }
+    });
 });
 
 
