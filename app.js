@@ -11,8 +11,15 @@ const express       = require("express"),
       expressSession = require("express-session"),
       Track         = require("./models/track"),
       Comment       = require("./models/comment"),
-      User          = require("./models/user");
+      User          = require("./models/user"),
+      Path          = require("path"),
+      multer        = require("multer");
       
+
+
+
+
+
 
 //REQUIRING ROUTES
 var indexRoutes     = require("./routes/index"),

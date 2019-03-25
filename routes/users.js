@@ -5,6 +5,42 @@ var Comment = require("../models/comment");
 var Track = require("../models/track");
 var passport = require("passport");
 var middlewareObj = require("../middleware");
+var multer = require("multer");
+var path = require("path");
+
+//Set Storage Engine
+var storage = multer.diskStorage({
+    destination: "./public/uploads/",
+    filename: function(req, file, cb){
+        cb(null, file.originalname + '-' + Date.now() +
+        path.extname(file.originalname));
+    }
+});
+
+//Init Upload
+var upload = multer({
+    storage: storage,
+    limits: {fileSize: 1000000000},
+    fileFilter: function(req, file, cb){
+        checkFileType(file, cb);
+    }
+}).single("uploadedTrack");
+
+//Check File Type
+function checkFileType(file, cb){
+    //Allowed ext
+    var filetypes = /wav|mp3/;
+    //Check ext
+    var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    //Check mime
+    var mimetype = filetypes.test(file.mimetype);
+
+    if(mimetype && extname){
+        return cb(null, true);
+    } else {
+        cb("Error: WAV's only")
+    }
+}
 
 //PROFILE PAGE ROUTE
 router.get("/:id", middlewareObj.isLoggedIn, function(req, res){
@@ -31,30 +67,42 @@ router.get("/:id/tracks/new", middlewareObj.isLoggedIn, function(req, res){
 });
 
 //CREATE NEW TRACK
-router.post("/:id/tracks/", function(req, res){
-    User.findById(req.params.id, function(err, foundUser){
-        if(err || !foundUser){
-            req.flash("error", "User not found");
+router.post("/:id/tracks/",  function(req, res){
+    upload(req, res, function(err){
+        if(err){
+            req.flash("error", "No File Selected");
             res.redirect("back");
         } else {
-            Track.create(req.body.track, function(err, track){
-                if(err || !track){
-                    req.flash("error", "Something went worng");
-                    res.redirect("back");
-                } else {
-                    //add id and username to track
-                    track.author.id = req.user._id;
-                    track.author.username = req.user.username;
-                    track.save();
-                    foundUser.tracks.push(track);
-                    foundUser.save();
-                    req.flash("success", "Successfuly created track");
-                    res.redirect("/users/" + req.params.id);
-                }
-            })
+            if(req.file == undefined){
+                req.flash("error", "No File Selected");
+                res.render("users/new");
+            } else {
+                User.findById(req.params.id, function(err, foundUser){
+                    if(err || !foundUser){
+                        req.flash("error", "User not found");
+                        res.redirect("back");
+                    } else {
+                        Track.create(req.body.track, function(err, track){
+                            if(err || !track){
+                                req.flash("error", "Something went worng");
+                                res.redirect("back");
+                            } else {
+                                //add id and username to track
+                                track.author.id = req.user._id;
+                                track.author.username = req.user.username;
+                                track.save();
+                                foundUser.tracks.push(track);
+                                foundUser.save();
+                                req.flash("success", "Successfuly created track");
+                                res.redirect("/users/" + req.params.id);      
+                            }
+                        });
+                    }
+                });  
+            }
         }
-    })
-})
+    });
+});
 
 //TRACK DETAIL PAGE
 router.get("/:id/tracks/:track_id", middlewareObj.checkTrackOwnership, function(req, res){
