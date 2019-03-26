@@ -6,13 +6,13 @@
             <div style="width: 30%; margin: 25px auto;">
                 <form action="/users/<%= currentUser.id %>/tracks" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="track[title]" placeholder="Title">
+                        <input class="form-control" type="text" name="track[title]" placeholder="Title" required>
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="text" name="track[image]" placeholder="Image">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" name="track[tempo]" placeholder="Tempo (BPM)">
+                        <input class="form-control" type="text" name="track[tempo]" placeholder="Tempo (BPM)" required>
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="text" name="track[mixNotes]" placeholder="Mix Notes">
@@ -21,7 +21,7 @@
                         <input class="form-control" type="text" name="track[extraInfo]" placeholder="Extra Info">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="file" name="uploadedTrack" placeholder="Upload Track">
+                        <input class="form-control" type="file" name="file" placeholder="Upload Track" required>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-lg btn-danger btn-block">Submit!</button>

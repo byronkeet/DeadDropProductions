@@ -6,41 +6,11 @@ var Track = require("../models/track");
 var passport = require("passport");
 var middlewareObj = require("../middleware");
 var multer = require("multer");
-var path = require("path");
+var stream = require("stream");
+var upload = require("../config/multer.config");
+var s3 = require("../config/s3.config");
+var awsWorker = require("../controllers/aws.controller");
 
-//Set Storage Engine
-var storage = multer.diskStorage({
-    destination: "./public/uploads/",
-    filename: function(req, file, cb){
-        cb(null, file.originalname + '-' + Date.now() +
-        path.extname(file.originalname));
-    }
-});
-
-//Init Upload
-var upload = multer({
-    storage: storage,
-    limits: {fileSize: 1000000000},
-    fileFilter: function(req, file, cb){
-        checkFileType(file, cb);
-    }
-}).single("uploadedTrack");
-
-//Check File Type
-function checkFileType(file, cb){
-    //Allowed ext
-    var filetypes = /wav|mp3/;
-    //Check ext
-    var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    //Check mime
-    var mimetype = filetypes.test(file.mimetype);
-
-    if(mimetype && extname){
-        return cb(null, true);
-    } else {
-        cb("Error: WAV's only")
-    }
-}
 
 //PROFILE PAGE ROUTE
 router.get("/:id", middlewareObj.isLoggedIn, function(req, res){
@@ -67,9 +37,15 @@ router.get("/:id/tracks/new", middlewareObj.isLoggedIn, function(req, res){
 });
 
 //CREATE NEW TRACK
-router.post("/:id/tracks/",  function(req, res){
-    upload(req, res, function(err){
-        if(err){
+router.post("/:id/tracks/", upload.single("file"),  function(req, res){
+    var s3Client = s3.s3Client;
+    var params = s3.uploadParams;
+    
+    params.Key = req.file.originalname;
+    params.Body = req.file.buffer;
+        
+    s3Client.upload(params, (err, data) => {
+        if (err) {
             req.flash("error", "No File Selected");
             res.redirect("back");
         } else {
