@@ -46,7 +46,7 @@ router.post("/:id/tracks/", upload.single("file"),  function(req, res){
         
     s3Client.upload(params, (err, data) => {
         if (err) {
-            req.flash("error", "No File Selected");
+            req.flash("error", "No File Selected!");
             res.redirect("back");
         } else {
             if(req.file == undefined){
