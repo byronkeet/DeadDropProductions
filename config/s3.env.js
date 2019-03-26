@@ -1,3 +1,6 @@
+var dotenv = require("dotenv");
+dotenv.config();
+
 var env = {
     AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY,
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
