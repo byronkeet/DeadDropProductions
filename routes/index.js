@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router({mergeParams: true});
 var User = require("../models/user");
 var passport = require("passport");
+var nodemailer = require("nodemailer");
 
 //HOME PAGE - ROOT ROUTE
 router.get("/", function(req, res){
@@ -43,6 +44,45 @@ router.post("/register", function(req, res){
         performingAs: req.body.performingAs, 
         email: req.body.email
     });
+    const output = `
+        <p>WELCOME TO DEAD DROP PRODUCTIONS</p>
+        <h3>${req.body.name}</h3>
+        <p>Thank you for signing up with Dead Drop Productions. Please click the link below to authenticate your account.</p>
+        <p>http://localhost:3000/</p>
+        
+    `;
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+        host: 'smtp.yandex.com',
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        auth: {
+            user: process.env.USER_EMAIL, // generated ethereal user
+            pass: process.env.USER_EMAIL_PASSWORD  // generated ethereal password
+        },
+        tls:{
+        rejectUnauthorized:false
+        }
+    });
+
+    // setup email data with unicode symbols
+    let mailOptions = {
+        from: '"BK" <keetbis@yandex.com>', // sender address
+        to: req.body.email, // list of receivers
+        subject: 'Welcome to Dead Drop Productions', // Subject line
+        text: 'Hello world?', // plain text body
+        html: output // html body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);   
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    });
+
     User.register(newUser, req.body.password, function(err, user){
         if(err) {
             req.flash("error", err.message)

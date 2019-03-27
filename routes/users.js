@@ -12,6 +12,7 @@ var s3 = require("../config/s3.config");
 var awsWorker = require("../controllers/aws.controller");
 
 
+
 //PROFILE PAGE ROUTE
 router.get("/:id", middlewareObj.isLoggedIn, function(req, res){
     User.findById(req.params.id, function(err, foundUser){
