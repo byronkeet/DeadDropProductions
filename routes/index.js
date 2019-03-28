@@ -64,9 +64,6 @@ router.post("/register", function(req, res){
         auth: {
             user: process.env.USER_EMAIL, // generated ethereal user
             pass: process.env.USER_EMAIL_PASSWORD  // generated ethereal password
-        },
-        tls:{
-        rejectUnauthorized:false
         }
     });
 
@@ -174,9 +171,6 @@ router.get('/forgot', function(req, res) {
           auth: {
               user: process.env.USER_EMAIL, // generated ethereal user
               pass: process.env.USER_EMAIL_PASSWORD  // generated ethereal password
-          },
-          tls:{
-          rejectUnauthorized:false
           }
         });
         var mailOptions = {
@@ -261,9 +255,7 @@ router.get('/forgot', function(req, res) {
               user: process.env.USER_EMAIL, // generated ethereal user
               pass: process.env.USER_EMAIL_PASSWORD  // generated ethereal password
           },
-          tls:{
-          rejectUnauthorized:false
-          }
+          
         });
         var mailOptions = {
           to: user.email,
