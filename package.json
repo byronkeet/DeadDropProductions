@@ -14,6 +14,7 @@
   "author": "Byron Keet",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.2",
     "aws-sdk": "^2.428.0",
     "body-parser": "^1.18.3",
     "connect-flash": "^0.1.1",
