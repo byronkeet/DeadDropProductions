@@ -8,6 +8,7 @@ body {
   color: black;
 }
 
+
  /* REGISTER FORM */
 .grey form input {
   border-radius: 25px;
@@ -214,7 +215,15 @@ a:active {
     }
   }
   @media (max-width: 576px) {
+    .labels {
+      height: auto;
+      width: 100%;
+    } 
     
+    div.container.grey{
+      height: auto;
+      width: 100%;
+    }
   
   .social a {
     font-size: 2rem;
