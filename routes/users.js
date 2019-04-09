@@ -37,8 +37,14 @@ router.get("/:id/tracks/new", middlewareObj.isLoggedIn, function(req, res){
     res.render("users/new");
 });
 
+function extendTimeout (req, res, next) {
+    res.setTimeout(1200000, function () { console.log('Request has timed out.');
+    res.send(408);});
+    next();
+  };
+
 //CREATE NEW TRACK
-router.post("/:id/tracks/", upload.single("file"),  function(req, res){
+router.post("/:id/tracks/", extendTimeout, upload.single("file"),  function(req, res){
     var s3Client = s3.s3Client;
     var params = s3.uploadParams;
     
@@ -96,6 +102,18 @@ router.get("/:id/tracks/:track_id", middlewareObj.checkTrackOwnership, function(
                     res.render("users/show", {track: foundTrack, user: foundUser});
                 }
             });
+        }
+    });
+});
+
+//TRACK DELETE ROUTE
+router.delete("/:id/tracks/:track_id/", middlewareObj.checkTrackOwnership, function(req, res){
+    Track.findByIdAndRemove(req.params.track_id, function(err){
+        if(err){
+            res.redirect("back");
+        } else {
+            req.flash("success", "Track deleted");
+            res.redirect("/users/" + req.params.id);
         }
     });
 });

@@ -49,13 +49,23 @@ router.post("/register", function(req, res){
         performingAs: req.body.performingAs, 
         email: req.body.email
     });
+
     const output = `
-        <p>WELCOME TO DEAD DROP PRODUCTIONS</p>
-        <h3>${req.body.name}</h3>
-        <p>Thank you for signing up with Dead Drop Productions. Please click the link below to authenticate your account.</p>
+        <p>Hello, Welcome to Dead Drop Productions!</p>
+        <p>Thank you for choosing Dead Drop to produce your artist vision, we are really looking forward to creating something great with you.</p>
+        <p>Please click the link below to complete registration and authenticate your account.</p>
         <p>http://${req.headers.host}/</p>
-        
-    `;
+        <p>You now have access to your Artist Profile where you can begin uploading your stems to our servers. Our head engineer will be in contact with you once they have been received.</p>
+        <p>Please take note of the recording guidelines to make sure you have included all the correct stems for your songs. Download the PDF attached for more info.</p>
+        <p>If you have any issues logging in or uploading your stems, please contact our support team at Support@deaddropproductions.net</p>
+        `;
+
+    User.register(newUser, req.body.password, function(err, user){
+      if(err) {
+          req.flash('error', 'Username or Email already exists');
+          return res.redirect("/register");
+      }
+      
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
         host: 'smtp.yandex.com',
@@ -72,8 +82,12 @@ router.post("/register", function(req, res){
         from: '"BK" <keetbis@yandex.com>', // sender address
         to: req.body.email, // list of receivers
         subject: 'Welcome to Dead Drop Productions', // Subject line
-        text: 'Hello world?', // plain text body
-        html: output // html body
+        html: output, // html body
+        attachments: [{
+          filename: 'Recording Checklist',
+          path: 'http://localhost:3000/downloads/RECORDING%20CHECKLIST.pdf',
+          contentType: 'application/pdf'
+        }]
     };
 
     // send mail with defined transport object
@@ -85,16 +99,16 @@ router.post("/register", function(req, res){
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     });
 
-    User.register(newUser, req.body.password, function(err, user){
-        if(err) {
-            req.flash("error", err.message)
-            return res.render("register");
-        }
-        passport.authenticate("local")(req, res, function(){
-            req.flash("success", "Welcome to dead DROP Productions " + user.username);
-            res.redirect('/users/' + user.id);
-        });
-    });
+
+      passport.authenticate("local")(req, res, function(){
+          req.flash("success", "Welcome to dead DROP Productions " + user.username);
+          
+          res.redirect('/users/' + user.id);
+      });
+  });
+
+    
+    
 });
 
 //SHOW LOGIN FORM
