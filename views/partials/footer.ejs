@@ -82,6 +82,50 @@
             });
 
             $(function(){
+                $('#edit').hover(function()//on over
+                {
+                    $('#editRate').attr('src', '/imgs/Content-Headings/RATES/EDITING-ROLL.jpg');
+                },
+                function()//on out
+                {
+                    $('#editRate').attr('src', '/imgs/Content-Headings/RATES/EDITING.jpg');
+                })
+            });
+            
+            $(function(){
+                $('#mix').hover(function()//on over
+                {
+                    $('#mixRate').attr('src', '/imgs/Content-Headings/RATES/MIXING-ROLL.jpg');
+                },
+                function()//on out
+                {
+                    $('#mixRate').attr('src', '/imgs/Content-Headings/RATES/MIXING.jpg');
+                })
+            });
+            
+            $(function(){
+                $('#master').hover(function()//on over
+                {
+                    $('#masterRate').attr('src', '/imgs/Content-Headings/RATES/MASTERING-ROLL.jpg');
+                },
+                function()//on out
+                {
+                    $('#masterRate').attr('src', '/imgs/Content-Headings/RATES/MASTERING.jpg');
+                })
+            });
+            
+            $(function(){
+                $('#mixAndMaster').hover(function()//on over
+                {
+                    $('#mixAndMasterRate').attr('src', '/imgs/Content-Headings/RATES/MIXING-AND-MASTERING-ROLL.jpg');
+                },
+                function()//on out
+                {
+                    $('#mixAndMasterRate').attr('src', '/imgs/Content-Headings/RATES/MIXING-AND-MASTERING.jpg');
+                })
+            });
+
+            $(function(){
                 $('[data-toggle="collapse"]').on('click',function(){
                     $('.collapse').collapse('hide');
                 });
@@ -95,6 +139,10 @@
                 this.value = "";
                 };
             };
+
+            
+
+
         
        </script>
 

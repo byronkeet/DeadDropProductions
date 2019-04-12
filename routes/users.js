@@ -38,7 +38,7 @@ router.get("/:id/tracks/new", middlewareObj.isLoggedIn, function(req, res){
 });
 
 function extendTimeout (req, res, next) {
-    res.setTimeout(1200000, function () { console.log('Request has timed out.');
+    res.setTimeout(86400000, function () { console.log('Request has timed out.');
     res.send(408);});
     next();
   };
