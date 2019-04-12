@@ -68,9 +68,9 @@ router.post("/register", function(req, res){
       
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-        host: 'smtp.yandex.com',
-        port: 465,
-        secure: true, // true for 465, false for other ports
+        host: 'mail.privateemail.com',
+        port: 587,
+        secure: false, // true for 465, false for other ports
         auth: {
             user: process.env.USER_EMAIL, // generated ethereal user
             pass: process.env.USER_EMAIL_PASSWORD  // generated ethereal password
@@ -79,7 +79,7 @@ router.post("/register", function(req, res){
 
     // setup email data with unicode symbols
     let mailOptions = {
-        from: '"BK" <keetbis@yandex.com>', // sender address
+        from: '"DDP" <support@deaddropproductions.net>', // sender address
         to: req.body.email, // list of receivers
         subject: 'Welcome to Dead Drop Productions', // Subject line
         html: output, // html body
@@ -179,9 +179,9 @@ router.get('/forgot', function(req, res) {
       },
       function(token, user, done) {
         var smtpTransport = nodemailer.createTransport({
-          host: 'smtp.yandex.com', 
-          port: 465,
-          secure: true, // true for 465, false for other ports
+          host: 'mail.privateemail.com', 
+          port: 587,
+          secure: false, // true for 465, false for other ports
           auth: {
               user: process.env.USER_EMAIL, // generated ethereal user
               pass: process.env.USER_EMAIL_PASSWORD  // generated ethereal password
@@ -189,7 +189,7 @@ router.get('/forgot', function(req, res) {
         });
         var mailOptions = {
           to: user.email,
-          from: 'keetbis@yandex.com',
+          from: '"DDP" <support@deaddropproductions.net>',
           subject: 'Dead Drop Productions Password Reset',
           text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
             'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -262,9 +262,9 @@ router.get('/forgot', function(req, res) {
       },
       function(user, done) {
         var smtpTransport = nodemailer.createTransport({
-          host: 'smtp.yandex.com', 
-          port: 465,
-          secure: true, // true for 465, false for other ports
+          host: 'mail.privateemail.com', 
+          port: 587,
+          secure: false, // true for 465, false for other ports
           auth: {
               user: process.env.USER_EMAIL, // generated ethereal user
               pass: process.env.USER_EMAIL_PASSWORD  // generated ethereal password
@@ -273,7 +273,7 @@ router.get('/forgot', function(req, res) {
         });
         var mailOptions = {
           to: user.email,
-          from: 'keetbis@yandex.com',
+          from: '"DDP" <support@deaddropproductions.net>',
           subject: 'Dead Drop Productions: Your password has been changed',
           text: 'Hello,\n\n' +
             'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
